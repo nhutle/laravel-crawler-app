@@ -8,6 +8,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use KubAT\PhpSimple\HtmlDomParser;
+use Serps\SearchEngine\Google\GoogleClient;
+use Serps\HttpClient\CurlClient;
+use Serps\SearchEngine\Google\GoogleUrl;
+use Serps\Core\Browser\Browser;
 
 class CrawlerJob implements ShouldQueue
 {
@@ -33,10 +37,14 @@ class CrawlerJob implements ShouldQueue
     public function handle()
     {
         foreach ($this->keywords as $keyword) {
-            $html = $this->googleCrawler($keyword[0]);
+            //$html = $this->googleCrawler($keyword[0]);
+            $keyword = trim($keyword[0]);
+            $response = $this->serpSpider($keyword);
+            var_dump($response);
+            die();
 
-            if ($html) {
-                file_put_contents('sample2  .html', $html);
+            /*if ($html) {
+                file_put_contents('sample2.html', $html);
                 //$totalResults = $html->find('#result-stats', 0);
                 //var_dump($html);
                 die();
@@ -44,7 +52,7 @@ class CrawlerJob implements ShouldQueue
                 sleep(1);
             } else {
                 // fail
-            }
+            }*/
         }
     }
 
@@ -109,5 +117,25 @@ class CrawlerJob implements ShouldQueue
             // Return DOM:
             return HtmlDomParser::str_get_html($html);
         }
+    }
+
+    private function serpSpider($keyword) {
+        $userAgent = "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36";
+        $browserLanguage = "en-EN";
+
+        $browser = new Browser(new CurlClient(), $userAgent, $browserLanguage);
+
+        // Create a google client using the browser we configured
+        $googleClient = new GoogleClient($browser);
+
+        // Create the url that will be parsed
+        $googleUrl = new GoogleUrl();
+        $googleUrl->setSearchTerm($keyword);
+
+        $response = $googleClient->query($googleUrl);
+
+        $results = $response->getNaturalResults();
+
+        return $results;
     }
 }
