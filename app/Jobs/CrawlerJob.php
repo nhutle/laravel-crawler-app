@@ -50,7 +50,7 @@ class CrawlerJob implements ShouldQueue
 
     private function googleCrawler(string $keyword) {
         //$url = 'https://www.google.com/search?q='.implode('+', explode(' ', $keyword));
-        $url = "http://www.google.com/search?hl=en&tbo=d&site=&source=hp&q=".$keyword;
+        $url = "http://www.google.com/search?hl=en&tbo=d&site=&source=hp&q=".urlencode($keyword);
 
         // Create a new cURL resource:
         $curl = curl_init();
@@ -63,8 +63,10 @@ class CrawlerJob implements ShouldQueue
         curl_setopt($curl, CURLOPT_URL, $url);
 
         // Set a different user agent string (Googlebot)
-        curl_setopt($curl, CURLOPT_USERAGENT, 'Googlebot/2.1 (+http://www.google.com/bot.html)');
+        //curl_setopt($curl, CURLOPT_USERAGENT, 'Googlebot/2.1 (+http://www.google.com/bot.html)');
         //curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1");
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Opera/9.80 (J2ME/MIDP; Opera Mini/4.2.14912/870; U; id) Presto/2.4.15');
+
         // Follow redirects, if any:
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
