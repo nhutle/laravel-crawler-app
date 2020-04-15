@@ -21,7 +21,6 @@ class ImportController extends Controller
 
     public function parseImport(CsvImportRequest $request)
     {
-        // todo file extension validation:
         $path = $request->file('csv_file')->getRealPath();
         $data = array_map('str_getcsv', file($path));
 
