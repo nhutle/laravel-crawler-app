@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CrawlerJob;
 use App\Models\CsvData;
 use App\Models\Keyword;
 use App\Http\Requests\CsvImportRequest;
@@ -39,15 +40,20 @@ class ImportController extends Controller
 
     public function processImport(Request $request)
     {
+        // Create job:
         $data     = CsvData::find($request->csv_data_file_id);
         $csv_data = json_decode($data->csv_data, true);
 
-        foreach ($csv_data as $row) {
+        //$this->dispatch(new CrawlerJob($csv_data));
+        // Dispatch job:
+        CrawlerJob::dispatch($csv_data);
+
+        /*foreach ($csv_data as $row) {
             $keyword = new Keyword();
             $keyword->name = $row[0];
             $keyword->save();
-        }
+        }*/
 
-        return view('import_success');
+        //return view('import_success');
     }
 }
