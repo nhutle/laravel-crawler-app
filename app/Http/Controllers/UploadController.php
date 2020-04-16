@@ -27,8 +27,8 @@ class UploadController extends Controller
 
         if (count($csv_data) > 0) {
             $csv_data_file   = CsvData::create([
-                'csv_filename' => $request->file('csv_file')->getClientOriginalName(),
-                'csv_data'     => json_encode($csv_data)
+                'filename' => $request->file('csv_file')->getClientOriginalName(),
+                'keywords' => json_encode($csv_data)
             ]);
 
             return view('parse_file', compact('csv_data', 'csv_data_file'));
@@ -41,7 +41,7 @@ class UploadController extends Controller
     {
         // Retrieve data from csv_data table:
         $data     = CsvData::find($request->csv_data_file_id);
-        $csv_data = json_decode($data->csv_data, true);
+        $csv_data = json_decode($data->keywords, true);
 
         // Create job:
         CrawlerJob::dispatch($csv_data);
