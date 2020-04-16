@@ -15,7 +15,7 @@ class ImportController extends Controller
         $this->middleware('auth');
     }
 
-    public function getImport()
+    public function index()
     {
         return view('import');
     }

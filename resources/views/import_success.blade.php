@@ -6,7 +6,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">CSV Import</div>
-
+                    <br>
                     <div class="panel-body">
                         Data imported successfully. We are processing it.
                     </div>
