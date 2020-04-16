@@ -151,6 +151,7 @@ class CrawlerJob implements ShouldQueue
             $result['html_code']            = $DOM->saveHTML() ? : '';
         } catch (RequestErrorException $e) { // Error on network connection
             // Some error with the request:
+            // todo throw exception
             $errorInfo = $e->getMessage();
             return false;
         }

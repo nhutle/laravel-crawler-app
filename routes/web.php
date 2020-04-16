@@ -24,6 +24,6 @@ Route::get('/{statistics?}', 'StatisticsController@index')
 Route::get('/statistics/{id}/html_code', 'StatisticsController@htmlCode')->name('statistic_content');
 
 // Import CSV:
-Route::get('/upload', 'ImportController@index')->name('import');
-Route::post('/import_parse', 'ImportController@parseImport')->name('import_parse');
-Route::post('/import_process', 'ImportController@processImport')->name('import_process');
+Route::get('/upload', 'UploadController@index')->name('upload');
+Route::post('/parse_file', 'UploadController@parseFile')->name('parse_file');
+Route::post('/process_file', 'UploadController@processFile')->name('process_file');
