@@ -13,8 +13,8 @@ class StatisticsController extends Controller
 
     public function index()
     {
-        $statistics = Statistic::all();
-        return view('statistics', compact('statistics'));
+        $statistics = Statistic::paginate(5);
+        return view('statistics', ['statistics' => $statistics]);
     }
 
     public function htmlCode(int $id)

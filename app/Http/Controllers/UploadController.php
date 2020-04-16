@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CrawlerJob;
 use App\Models\CsvData;
-use App\Models\Keyword;
 use App\Http\Requests\CsvImportRequest;
 use Illuminate\Http\Request;
 
