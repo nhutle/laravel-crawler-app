@@ -8,7 +8,7 @@
                     <div class="panel-heading">CSV Import</div>
 
                     <div class="panel-body">
-                        Data imported successfully.
+                        Data imported successfully. We are processing it.
                     </div>
                 </div>
             </div>
