@@ -5,7 +5,10 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Statistics</div>
+                    <div class="panel-heading">
+                        Statistics
+                        <a href="/upload" class="btn btn-success float-right">Upload new CSV</a>
+                    </div>
                     <div class="panel-body">
                         @foreach ($statistics as $statistic)
                             <div>
@@ -13,6 +16,7 @@
                                 <p>Number of Results: {{ $statistic->total_search_results }}</p>
                                 <p>Number of Adwords: {{ $statistic->total_adwords }}</p>
                                 <p>Number of Links: {{ $statistic->total_links }}</p>
+                                <p>HTML Code: <a target="_blank" href="{{ route('statistic_content', $statistic->id) }}">Open it</a></p>
                             </div>
                         @endforeach
                     </div>

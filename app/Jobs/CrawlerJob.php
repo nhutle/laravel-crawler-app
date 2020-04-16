@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use KubAT\PhpSimple\HtmlDomParser;
+use Serps\Exception\RequestError\RequestErrorException;
 use Serps\SearchEngine\Google\GoogleClient;
 use Serps\HttpClient\CurlClient;
 use Serps\SearchEngine\Google\GoogleUrl;
@@ -128,13 +129,31 @@ class CrawlerJob implements ShouldQueue
         $googleUrl = new GoogleUrl();
         $googleUrl->setSearchTerm($keyword);
 
-        $response = $googleClient->query($googleUrl);
+        $result = array(
+            'keyword'       => $keyword,
+            'total_adwords' => 0,
+            'total_links'   => 0,
+            'total_search_results' => 0,
+            'html_code' => ''
+        );
 
-        $result['keyword']              = $keyword;
-        $result['total_adwords']        = $response->getAdwordsResults()->count() ? : 0;
-        $result['total_links']          = $response->cssQuery('a')->count() ? : 0;
-        $result['total_search_results'] = $response->getNumberOfResults() ? : 0;
-        $result['html_code']            = $response->getDom()->saveHTML() ? : '';
+        try {
+            $response        = $googleClient->query($googleUrl);
+            $adwords         = $response->getAdwordsResults();
+            $links           = $response->cssQuery('a');
+            $numberOfResults = $response->getNumberOfResults();
+            $DOM             = $response->getDom();
+
+            // Collect data:
+            $result['total_adwords']        = $adwords->count() ? : 0;
+            $result['total_links']          = $links->count() ? : 0;
+            $result['total_search_results'] = $numberOfResults ? : 0;
+            $result['html_code']            = $DOM->saveHTML() ? : '';
+        } catch (RequestErrorException $e) { // Error on network connection
+            // Some error with the request:
+            $errorInfo = $e->getMessage();
+            return false;
+        }
 
         return $result;
     }
