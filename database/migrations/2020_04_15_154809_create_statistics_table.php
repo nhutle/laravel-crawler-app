@@ -19,7 +19,7 @@ class CreateStatisticsTable extends Migration
             $table->unsignedInteger('total_adwords');
             $table->unsignedInteger('total_links');
             $table->unsignedBigInteger('total_search_results');
-            $table->text('html_code');
+            $table->longText('html_code');
             $table->timestamps();
         });
     }
