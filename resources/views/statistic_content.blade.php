@@ -9,7 +9,7 @@
                         HTML Content of keyword "{{ $keyword }}"
                     </div>
                     <div class="panel-body">
-                        {!! $content !!}
+                        <?php echo $content; ?>
                     </div>
                 </div>
             </div>

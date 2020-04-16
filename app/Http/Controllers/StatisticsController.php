@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Statistic;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class StatisticsController extends Controller
 {
