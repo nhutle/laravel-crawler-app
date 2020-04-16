@@ -41,7 +41,7 @@ class CrawlerJob implements ShouldQueue
         echo 'Crawling google...'.PHP_EOL;
 
         foreach ($this->keywords as $keyword) {
-            $keyword  = trim($keyword[0]);
+            $keyword  = trim($keyword);
             $response = $this->serpSpider($keyword);
 
             // Save statistic:

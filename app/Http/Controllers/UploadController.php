@@ -26,12 +26,16 @@ class UploadController extends Controller
         $csv_data = array_map('str_getcsv', file($path));
 
         if (count($csv_data) > 0) {
+            foreach ($csv_data as $data) {
+                $keywords[] = $data[0];
+            }
+
             $csv_data_file   = CsvData::create([
                 'filename' => $request->file('csv_file')->getClientOriginalName(),
-                'keywords' => json_encode($csv_data)
+                'keywords' => json_encode($keywords)
             ]);
 
-            return view('parse_file', compact('csv_data', 'csv_data_file'));
+            return view('parse_file', compact('keywords', 'csv_data_file'));
         } else {
             return redirect()->back();
         }

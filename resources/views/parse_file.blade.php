@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">CSV Parse</div>
+                    <div class="panel-heading">CSV Parsed</div>
 
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{ route('process_file') }}">
@@ -13,16 +13,14 @@
                             <input type="hidden" name="csv_data_file_id" value="{{ $csv_data_file->id }}" />
 
                             <div class="file-content">
-                                @foreach ($csv_data as $row)
-                                    @foreach ($row as $key => $value)
-                                        {{ $value }}
-                                        <br>
-                                    @endforeach
+                                @foreach ($keywords as $keyword)
+                                    {{ $keyword }}
+                                    <br>
                                 @endforeach
                             </div>
 
                             <button type="submit" class="btn btn-primary">
-                                Import Data
+                                Start Cron Job
                             </button>
                         </form>
                     </div>
