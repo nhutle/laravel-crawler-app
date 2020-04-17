@@ -90,7 +90,7 @@ This project demonstrates how to build a basic web application with Laravel to p
 
 ## Live demo
 
-I have tried to deploy the project on AWS Elastic Beanstalk but can not access it via SSH from my Windows, so that you can not log-in for sure. I will need to fix it then, at least succeed to ssh to my EC2.
+I have tried to deploy the project on AWS Elastic Beanstalk but can not access it via SSH from my Windows, hence you can not log-in for sure. I will need to fix it then, at least succeed to ssh to my EC2.
 
 Link to it http://laravelcrawlerapp-env.eba-surpq9em.ap-southeast-1.elasticbeanstalk.com
 
