@@ -52,6 +52,11 @@ class CrawlerJob implements ShouldQueue
         }
     }
 
+    /**
+     * Crawler using cURL.
+     * @param string $keyword
+     * @return bool|mixed
+     */
     private function googleCrawler(string $keyword) {
         //$url = 'https://www.google.com/search?q='.implode('+', explode(' ', $keyword));
         $url = "http://www.google.com/search?hl=en&tbo=d&site=&source=hp&q=".urlencode($keyword);
@@ -115,6 +120,13 @@ class CrawlerJob implements ShouldQueue
         }
     }
 
+    /**
+     * Crawler using Serps
+     * @param $keyword
+     * @return array|bool
+     * @throws \Serps\Exception
+     * @throws \Serps\SearchEngine\Google\Exception\InvalidDOMException
+     */
     private function serpSpider($keyword) {
         $userAgent       = "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36";
         $browserLanguage = "en-EN";
