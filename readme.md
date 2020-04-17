@@ -1,6 +1,12 @@
 ## About Project
 
-This project demonstrates how to build a web application with Laravel with aut
+This project demonstrates how to build a basic web application with Laravel to provide basic functions:
+
+- Authentication
+
+- CSV file upload and insert to db.
+
+- Create worker to curl google search page using uploaded keywords.
 
 ## Requirements
 - PHP >= 7.1.3
