@@ -13,6 +13,7 @@
         "laravel/tinker": "^1.0",
         "serps/http-client-curl": "^0.2.3",
         "serps/search-engine-google": "^0.4.8",
+        "tymon/jwt-auth": "^1.0",
         "zendframework/zend-diactoros": "^2.2"
     },
     "require-dev": {
