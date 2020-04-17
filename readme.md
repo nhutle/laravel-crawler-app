@@ -21,7 +21,9 @@ This project demonstrates how to build a basic web application with Laravel to p
 
 1. First, clone the repo:
 
-``git clone git@github.com:nhutle/laravel-crawler-app.git``
+   ```
+   $ git clone git@github.com:nhutle/laravel-crawler-app.git
+   ```
 
 2. Create `.env` file by rename `.env.local` to be `.env`
 
@@ -29,7 +31,9 @@ This project demonstrates how to build a basic web application with Laravel to p
 
 4. Run following commands to initial project
 
-   ``composer install``
+   ```
+    $ composer install
+   ```
 
    ``php artisan key:generate``
 
