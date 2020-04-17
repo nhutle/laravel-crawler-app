@@ -79,6 +79,8 @@ This project demonstrates how to build a basic web application with Laravel to p
    ```
    password: nhutle
    ```
+   
+9. Find sample csv under name `keywords.csv`
 
 ## Issues
 
