@@ -1,0 +1,22 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use App\Models\User;
+
+class UserSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        User::create([
+            'username' => 'nhutle',
+            'email'    => 'nhutle@gmail.com',
+            'name'     => 'Nhut Le',
+            'password' => Hash::make('nhutle'),
+        ]);
+    }
+}

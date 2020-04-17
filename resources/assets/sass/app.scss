@@ -9,6 +9,28 @@
 @import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.statistics-header {
+    margin-bottom: 30px;
+}
+
+.panel-heading {
+    margin-bottom: 15px;
+}
+
+.statistic {
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    &:nth-child(odd) {
+        background-color: #eee;
+    }
+}
+
+.file-content {
+    margin: 15px 0;
 }
