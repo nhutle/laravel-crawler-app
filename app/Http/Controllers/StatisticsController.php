@@ -11,13 +11,13 @@ class StatisticsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function getStatistics()
     {
         $statistics = Statistic::paginate(5);
         return view('statistics', ['statistics' => $statistics]);
     }
 
-    public function htmlCode(int $id)
+    public function getHTMLCode(int $id)
     {
         $statistic = Statistic::findOrFail($id);
         $keyword   = $statistic->keyword;

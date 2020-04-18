@@ -8,7 +8,7 @@ This project demonstrates how to build a basic web application with Laravel to p
 
 - Create worker to curl google search page using uploaded keywords.
 
-## Requirements
+## Pre-requirements
 - PHP >= 7.1.3
 
 - PostgreSQL 12.2
@@ -17,7 +17,7 @@ This project demonstrates how to build a basic web application with Laravel to p
 
 - Composer
 
-## Getting Started
+## How to run it
 
 1. First, clone the repo:
 
@@ -82,21 +82,39 @@ This project demonstrates how to build a basic web application with Laravel to p
    
 9. Find sample csv under name `keywords.csv`
 
-## Issues
+## Routes
 
-- No API implementation at the moment, but it's on my bucket list
+#### Web
+| Method | Path | Description
+| ------ |:-----:| --------:|
+| GET | /login | Login view
+| POST | /login | Login with username/password
+| GET | /upload | Upload view
+| POST | /upload | Upload CSV file
+| POST | /process_file | Process file
+| GET | /statistics | Statistics view
 
-- When click on `Open it` <- Google Page Cache, somehow its JavaScript redirects user to a new page.
+#### API
+| Method | Path | Description
+| ------ |:-----:| --------:|
+| POST | /api/login | Login with username/password to generate JWT
+| POST | /api/upload | Upload CSV file
+| POST | /api/process_file | Process file
+| GET | /api/statistics | Get statistics
 
 ## Live demo
 
 I have tried to deploy the project on AWS Elastic Beanstalk but can not access it via SSH from my Windows, hence you can not log-in for sure. I will need to fix it then, at least succeed to ssh to my EC2.
 
-Link to it http://laravelcrawlerapp-env.eba-surpq9em.ap-southeast-1.elasticbeanstalk.com
+Link to [aws demo](http://laravelcrawlerapp-env.eba-surpq9em.ap-southeast-1.elasticbeanstalk.com)
 
-## Note
+## Issues
 
-I took me 2 days to realize that PHP CodeIgniter fails to manage crob job efficiently, then Laravel came out. I spent 2 more days to learn Laravel and this app has been build in 3 days only.
+- ~~No API implementation at the moment, but it's on my bucket list~~
+
+- When click on `Open it` <- Google Page Cache, somehow its JavaScript redirects user to a new page.
+
+- Basic implementation. It took me 2 days to realize that PHP CodeIgniter fails to manage crob job efficiently, then Laravel came out. I spent 2 more days to learn Laravel and this app has been build in 3 days only.
 
 ## Security Vulnerabilities
 

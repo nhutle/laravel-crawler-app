@@ -1,25 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Jobs\CrawlerJob;
 use App\Models\CsvData;
-use App\Http\Requests\CsvImportRequest;
 use Illuminate\Http\Request;
 
 class UploadController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    public function upload()
-    {
-        return view('upload');
-    }
-
-    public function parseFile(CsvImportRequest $request)
+    public function upload(Request $request)
     {
         $path     = $request->file('csv_file')->getRealPath();
         $csv_data = array_map('str_getcsv', file($path));
@@ -34,9 +24,13 @@ class UploadController extends Controller
                 'keywords' => json_encode($keywords)
             ]);
 
-            return view('parse_file', compact('keywords', 'csv_data_file'));
+            return response()->json([
+                'message'  => 'File uploaded',
+                'keywords' => $keywords,
+                'file_id'  => $csv_data_file->id
+            ], 200);
         } else {
-            return redirect()->back();
+            return response()->json(['error' => 'Empty file'], 200);
         }
     }
 
@@ -49,6 +43,6 @@ class UploadController extends Controller
         // Create job:
         CrawlerJob::dispatch($csv_data);
 
-        return view('import_success');
+        return response()->json(['message' => 'We are processing it'], 200);
     }
 }
