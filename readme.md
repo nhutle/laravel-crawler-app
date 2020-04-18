@@ -114,6 +114,8 @@ Link to [aws demo](http://laravelcrawlerapp-env.eba-surpq9em.ap-southeast-1.elas
 
 - When click on `Open it` <- Google Page Cache, somehow its JavaScript redirects user to a new page.
 
+- Live demo is broken.
+
 - Basic implementation. It took me 2 days to realize that PHP CodeIgniter fails to manage crob job efficiently, then Laravel came out. I spent 2 more days to learn Laravel and this app has been build in 3 days only.
 
 ## Security Vulnerabilities
