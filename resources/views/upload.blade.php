@@ -8,7 +8,7 @@
                     <div class="panel-heading">CSV Import</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('parse_file') }}" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="POST" action="{{ route('upload') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group{{ $errors->has('csv_file') ? ' has-error' : '' }}">

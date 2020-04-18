@@ -3,39 +3,46 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\CrawlerJob;
+use App\Models\CsvData;
 use Illuminate\Http\Request;
 
 class UploadController extends Controller
 {
-    public function __construct()
+    public function upload(Request $request)
     {
-        $this->middleware('auth:api');
-    }
+        $path     = $request->file('csv_file')->getRealPath();
+        $csv_data = array_map('str_getcsv', file($path));
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('username', 'password');
+        if (count($csv_data) > 0) {
+            foreach ($csv_data as $data) {
+                $keywords[] = $data[0];
+            }
 
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            $csv_data_file = CsvData::create([
+                'filename' => $request->file('csv_file')->getClientOriginalName(),
+                'keywords' => json_encode($keywords)
+            ]);
+
+            return response()->json([
+                'message'  => 'File uploaded',
+                'keywords' => $keywords,
+                'file_id'  => $csv_data_file->id
+            ], 200);
+        } else {
+            return response()->json(['error' => 'Empty file'], 200);
         }
-
-        return $this->respondWithToken($token);
     }
 
-    public function logout()
+    public function processFile(Request $request)
     {
-        auth()->logout();
+        // Retrieve data from csv_data table:
+        $data     = CsvData::find($request->file_id);
+        $csv_data = json_decode($data->keywords, true);
 
-        return response()->json(['message' => 'Successfully logged out']);
-    }
+        // Create job:
+        CrawlerJob::dispatch($csv_data);
 
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type'   => 'bearer',
-            'expires_in'   => auth()->factory()->getTTL() * 60
-        ]);
+        return response()->json(['message' => 'We are processing it'], 200);
     }
 }
