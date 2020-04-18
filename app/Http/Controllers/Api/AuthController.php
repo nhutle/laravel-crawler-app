@@ -7,15 +7,27 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        return auth()->shouldUse('api');
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
 
-        if (!$token = auth('api')->attempt($credentials)) {
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
 
     protected function respondWithToken($token)
@@ -23,7 +35,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type'   => 'bearer',
-            'expires_in'   => auth('api')->factory()->getTTL() * 60
+            'expires_in'   => auth()->factory()->getTTL() * 60
         ]);
     }
 }
