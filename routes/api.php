@@ -19,4 +19,5 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('logout', 'Api\AuthController@logout');
     Route::post('upload', 'Api\UploadController@upload');
     Route::post('process_file', 'Api\UploadController@processFile');
+    Route::get('statistics', 'Api\StatisticsController@getStatistics');
 });
