@@ -17,13 +17,13 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Statistic:
-Route::get('/{statistics?}', 'StatisticsController@index')
+Route::get('{statistics?}', 'StatisticsController@index')
     ->where('statistics', '(statistics)')
     ->name('statistics');
 
-Route::get('/statistics/{id}/html_code', 'StatisticsController@htmlCode')->name('statistic_content');
+Route::get('statistics/{id}/html_code', 'StatisticsController@htmlCode')->name('statistic_content');
 
 // Import CSV:
-Route::get('/upload', 'UploadController@index')->name('upload');
-Route::post('/parse_file', 'UploadController@parseFile')->name('parse_file');
-Route::post('/process_file', 'UploadController@processFile')->name('process_file');
+Route::get('upload', 'UploadController@index')->name('upload');
+Route::post('parse_file', 'UploadController@parseFile')->name('parse_file');
+Route::post('process_file', 'UploadController@processFile')->name('process_file');
