@@ -29,7 +29,7 @@ class UploadController extends Controller
                 $keywords[] = $data[0];
             }
 
-            $csv_data_file   = CsvData::create([
+            $csv_data_file = CsvData::create([
                 'filename' => $request->file('csv_file')->getClientOriginalName(),
                 'keywords' => json_encode($keywords)
             ]);
@@ -43,7 +43,7 @@ class UploadController extends Controller
     public function processFile(Request $request)
     {
         // Retrieve data from csv_data table:
-        $data     = CsvData::find($request->csv_data_file_id);
+        $data     = CsvData::find($request->file_id);
         $csv_data = json_decode($data->keywords, true);
 
         // Create job:

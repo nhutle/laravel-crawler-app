@@ -25,5 +25,5 @@ Route::get('statistics/{id}/html_code', 'StatisticsController@htmlCode')->name('
 
 // Import CSV:
 Route::get('upload', 'UploadController@upload')->name('upload');
-Route::post('parse_file', 'UploadController@parseFile')->name('parse_file');
+Route::post('upload', 'UploadController@parseFile')->name('upload');
 Route::post('process_file', 'UploadController@processFile')->name('process_file');
