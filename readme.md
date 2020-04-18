@@ -86,7 +86,7 @@ This project demonstrates how to build a basic web application with Laravel to p
 
 #### Web
 | Method | Path | Description
-| ------ |:-----:| --------:|
+| ------ |:-----| --------- |
 | GET | /login | Login view
 | POST | /login | Login with username/password
 | GET | /upload | Upload view
@@ -96,7 +96,7 @@ This project demonstrates how to build a basic web application with Laravel to p
 
 #### API
 | Method | Path | Description
-| ------ |:-----:| --------:|
+| ------ |:-----|:--------- |
 | POST | /api/login | Login with username/password to generate JWT
 | POST | /api/upload | Upload CSV file
 | POST | /api/process_file | Process file
