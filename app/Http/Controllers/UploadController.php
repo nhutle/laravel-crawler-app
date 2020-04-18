@@ -14,7 +14,7 @@ class UploadController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function upload()
     {
         return view('upload');
     }
