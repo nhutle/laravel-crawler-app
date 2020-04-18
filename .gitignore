@@ -13,3 +13,4 @@ yarn-error.log
 .env
 .phpunit.result.cache
 laravel-crawler-app.zip
+.env.prod
