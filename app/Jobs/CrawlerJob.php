@@ -58,7 +58,6 @@ class CrawlerJob implements ShouldQueue
      * @return bool|mixed
      */
     private function googleCrawler(string $keyword) {
-        //$url = 'https://www.google.com/search?q='.implode('+', explode(' ', $keyword));
         $url = "http://www.google.com/search?hl=en&tbo=d&site=&source=hp&q=".urlencode($keyword);
 
         // Create a new cURL resource:
@@ -71,9 +70,12 @@ class CrawlerJob implements ShouldQueue
         // Set the file URL to fetch through cURL:
         curl_setopt($curl, CURLOPT_URL, $url);
 
-        // Set a different user agent string (Googlebot)
-        //curl_setopt($curl, CURLOPT_USERAGENT, 'Googlebot/2.1 (+http://www.google.com/bot.html)');
-        //curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1");
+        /**
+         * Possible user agent:
+         * Googlebot/2.1 (+http://www.google.com/bot.html)
+         * Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1
+         * Opera/9.80 (J2ME/MIDP; Opera Mini/4.2.14912/870; U; id) Presto/2.4.15 (very old Opera Mobile browser)
+         */
         curl_setopt($curl, CURLOPT_USERAGENT, 'Opera/9.80 (J2ME/MIDP; Opera Mini/4.2.14912/870; U; id) Presto/2.4.15');
 
         // Follow redirects, if any:
@@ -112,16 +114,13 @@ class CrawlerJob implements ShouldQueue
             echo 'cURL error: ' . $error;
             return false;
         } else {
-            // cURL executed successfully:
-            //print_r($curl_info);
-
-            // Return DOM:
+            // cURL executed successfully, let return DOM:
             return HtmlDomParser::str_get_html($html);
         }
     }
 
     /**
-     * Crawler using Serps
+     * Crawler using Serps.
      * @param $keyword
      * @return array|bool
      * @throws \Serps\Exception
@@ -162,8 +161,7 @@ class CrawlerJob implements ShouldQueue
             $result['total_search_results'] = $numberOfResults ? : 0;
             $result['html_code']            = $DOM->saveHTML() ? : '';
         } catch (RequestErrorException $e) { // Error on network connection
-            // Some error with the request:
-            // todo throw exception
+            // todo throw exception: some errors with the request
             $errorInfo = $e->getMessage();
             return false;
         }

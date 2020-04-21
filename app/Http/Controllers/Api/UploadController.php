@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class UploadController extends Controller
 {
+    /**
+     * Parse file and save its keywords.
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function upload(Request $request)
     {
         $path     = $request->file('csv_file')->getRealPath();
@@ -25,7 +30,7 @@ class UploadController extends Controller
             ]);
 
             return response()->json([
-                'message'  => 'File uploaded',
+                'message'  => 'File uploadeded',
                 'keywords' => $keywords,
                 'file_id'  => $csv_data_file->id
             ], 200);
@@ -34,6 +39,11 @@ class UploadController extends Controller
         }
     }
 
+    /**
+     * Retrieve keywords, then start cron jobs
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function processFile(Request $request)
     {
         // Retrieve data from csv_data table:
