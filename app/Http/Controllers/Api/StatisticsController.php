@@ -7,6 +7,10 @@ use App\Models\Statistic;
 
 class StatisticsController extends Controller
 {
+    /**
+     * Get statistic with pagination.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getStatistics()
     {
         $statistics = Statistic::paginate(5);
