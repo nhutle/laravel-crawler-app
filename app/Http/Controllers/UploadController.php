@@ -61,10 +61,13 @@ class UploadController extends Controller
     {
         // Retrieve data from csv_data table:
         $data     = CsvData::find($request->file_id);
-        $csv_data = json_decode($data->keywords, true);
+        $keywords = json_decode($data->keywords, true);
 
-        // Create job:
-        CrawlerJob::dispatch($csv_data);
+        // Let create a job for each keyword:
+        foreach ($keywords as $keyword) {
+            // Create job:
+            CrawlerJob::dispatch($keyword);
+        }
 
         return view('import_success');
     }
