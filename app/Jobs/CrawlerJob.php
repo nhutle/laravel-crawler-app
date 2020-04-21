@@ -14,16 +14,16 @@ class CrawlerJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $keywords;
+    private $keyword;
 
     /**
      * Create a new job instance.
-     * @param array $keywords
+     * @param string $keyword
      * @return void
      */
-    public function __construct(array $keywords)
+    public function __construct(string $keyword)
     {
-        $this->keywords = $keywords;
+        $this->keyword = $keyword;
     }
 
     /**
@@ -33,23 +33,20 @@ class CrawlerJob implements ShouldQueue
      */
     public function handle()
     {
-        echo 'Crawling google...'.PHP_EOL;
+        $keyword  = trim($this->keyword);
+        echo '==> Crawling google with keyword='.$keyword.PHP_EOL;
         $googleSerp = new GoogleSerp();
 
-        foreach ($this->keywords as $keyword) {
-            $keyword  = trim($keyword);
+        try {
+            $response = $googleSerp->serpsSpider($keyword);
 
-            try {
-                $response = $googleSerp->serpsSpider($keyword);
+            // Save statistic:
+            Statistic::create($response);
 
-                // Save statistic:
-                Statistic::create($response);
-
-                // Sleep a bit:
-                sleep(rand(3, 5));
-            } catch (\Exception $e) {
-                echo $e->getMessage().PHP_EOL;
-            }
+            // Sleep a bit:
+            sleep(rand(1, 3));
+        } catch (\Exception $e) {
+            echo $e->getMessage().PHP_EOL;
         }
     }
 }
