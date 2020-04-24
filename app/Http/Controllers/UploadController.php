@@ -67,9 +67,10 @@ class UploadController extends Controller
         // Collect tasks:
         foreach ($keywords as $keyword) {
             $tasks[] = array(
-                'keyword'  => trim($keyword),
-                'status'   => 'pending',
-                'attempts' => 0
+                'keyword'     => trim($keyword),
+                'status'      => 'pending',
+                'attempts'    => 0,
+                'created_at'  => date('Y-m-d H:i:s')
             );
         }
 
