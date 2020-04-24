@@ -17,6 +17,6 @@ class Task extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'keyword', 'status', 'created_at', 'attempts', 'attempted_at'
+        'keyword', 'status', 'created_at', 'attempts', 'attempted_at', 'exception'
     ];
 }

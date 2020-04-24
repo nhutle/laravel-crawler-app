@@ -73,8 +73,9 @@ class Crawler extends Command
             } catch (\Exception $e) {
                 // Update task status:
                 $task->update([
-                    'status'   => 'failed',
-                    'attempts' => $task->attempts + 1
+                    'status'    => 'failed',
+                    'attempts'  => $task->attempts + 1,
+                    'exception' => $e->getMessage()
                 ]);
             }
         }

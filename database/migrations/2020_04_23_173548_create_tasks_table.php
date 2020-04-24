@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('keyword')->index();
             $table->enum('status', ['pending', 'success', 'failed'])->index();
             $table->integer('attempts');
+            $table->text('exception')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
