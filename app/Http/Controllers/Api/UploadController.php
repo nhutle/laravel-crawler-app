@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\CrawlerJob;
 use App\Models\CsvData;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class UploadController extends Controller
@@ -30,7 +30,7 @@ class UploadController extends Controller
             ]);
 
             return response()->json([
-                'message'  => 'File uploadeded',
+                'message'  => 'File uploaded',
                 'keywords' => $keywords,
                 'file_id'  => $csv_data_file->id
             ], 200);
@@ -48,10 +48,21 @@ class UploadController extends Controller
     {
         // Retrieve data from csv_data table:
         $data     = CsvData::find($request->file_id);
-        $csv_data = json_decode($data->keywords, true);
+        $keywords = json_decode($data->keywords, true);
+        $tasks    = array();
 
-        // Create job:
-        CrawlerJob::dispatch($csv_data);
+        // Collect tasks:
+        foreach ($keywords as $keyword) {
+            $tasks[] = array(
+                'keyword'     => trim($keyword),
+                'status'      => 'pending',
+                'attempts'    => 0,
+                'created_at'  => date('Y-m-d H:i:s')
+            );
+        }
+
+        // Insert tasks:
+        Task::insert($tasks);
 
         return response()->json(['message' => 'We are processing it'], 200);
     }
