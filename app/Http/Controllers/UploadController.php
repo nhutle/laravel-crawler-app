@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\CrawlerJob;
 use App\Models\CsvData;
 use App\Http\Requests\CsvImportRequest;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class UploadController extends Controller
@@ -53,7 +53,7 @@ class UploadController extends Controller
     }
 
     /**
-     * Retrieve keywords, then start cron jobs
+     * Retrieve csv content, then insert task for each keyword
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -62,12 +62,19 @@ class UploadController extends Controller
         // Retrieve data from csv_data table:
         $data     = CsvData::find($request->file_id);
         $keywords = json_decode($data->keywords, true);
+        $tasks    = array();
 
-        // Let create a job for each keyword:
+        // Collect tasks:
         foreach ($keywords as $keyword) {
-            // Create job:
-            CrawlerJob::dispatch($keyword);
+            $tasks[] = array(
+                'keyword'  => trim($keyword),
+                'status'   => 'pending',
+                'attempts' => 0
+            );
         }
+
+        // Insert tasks:
+        Task::insert($tasks);
 
         return view('import_success');
     }

@@ -14,3 +14,4 @@ yarn-error.log
 .phpunit.result.cache
 laravel-crawler-app.zip
 .env.prod
+NUL
