@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        "App\Console\Commands\Crawler",
+        "App\Console\Commands\SoftDeleteTasks"
     ];
 
     /**
@@ -24,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('crawler:run')->everyMinute()->withoutOverlapping(90);
+        $schedule->command('softDeleteTasks:run')->weekly()->withoutOverlapping(30);
     }
 
     /**
